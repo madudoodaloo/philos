@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 01:36:44 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/01 03:17:31 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/01 03:45:11 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ typedef struct s_args
     size_t  t_sleep;
     int     x_eat;
 }           t_args;
+
+/* threads.c */
+int create_philo(t_args *args);
+
 
 /* parser.c */
 void    init_all(t_args *args);

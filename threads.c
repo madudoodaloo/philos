@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/01 01:53:37 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/01 03:36:54 by msilva-c         ###   ########.fr       */
+/*   Created: 2024/09/01 03:44:05 by msilva-c          #+#    #+#             */
+/*   Updated: 2024/09/01 04:22:05 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int ac, char **av)
+int create_philo(t_args *args)
 {
-    t_args *args;
-
-    if(!wrong_args(ac, av))
-    {
-        args = (t_args *)malloc(sizeof(t_args));
-        if(args)
-        {
-            init_all(args);
-            parser(av, args);
-            create_philo(args);
-            //print_struct(args);
-        }
-        else
-            return(printf("malloc problem\n"));
-    }
-    return (0);
+    (void)args;
+    return 1;
 }

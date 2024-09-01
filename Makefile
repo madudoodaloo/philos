@@ -5,7 +5,13 @@ RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRC = $(wildcard *.c)
-OBJS = $(SRC:.c=.o)
+
+OBJS_DIR = objs
+OBJS = $(patsubst %.c,$(OBJS_DIR)/%.o,$(SRC))
+
+$(OBJS_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
@@ -13,7 +19,7 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJS_DIR)
 
 fclean: clean
 	@$(RM) $(NAME)
