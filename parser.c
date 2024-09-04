@@ -6,19 +6,14 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 03:10:30 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/01 05:18:55 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:13:48 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void init_all(t_args *args)
+void init_all(t_table *table)
 {
-    args->philos = 0;
-    args->t_die = 0;
-    args->t_eat = 0;
-    args->t_sleep = 0;
-    args->x_eat = 0;
 }
 
 size_t ft_atoi(const char *str)
@@ -34,14 +29,15 @@ size_t ft_atoi(const char *str)
     return(nbr);
 }
 
-void parser(char **av, t_args *args)
+void parser(char **av, t_philo *philo)
 {
-    args->philos = ft_atoi(av[1]);
-    args->t_die = ft_atoi(av[2]);
-    args->t_eat = ft_atoi(av[3]);
-    args->t_sleep = ft_atoi(av[4]);
+    philo->n_philo = ft_atoi(av[1]);
+    philo->t_die = ft_atoi(av[2]);
+    philo->t_eat = ft_atoi(av[3]);
+    philo->t_sleep = ft_atoi(av[4]);
     if (av[5])
-        args->x_eat = ft_atoi(av[5]);
+        philo->n_eat = ft_atoi(av[5]);
+    table->philo = (t_philo *)malloc(sizeof(t_philo) * );
 }
 
 int wrong_args(int ac, char **av)
@@ -52,7 +48,7 @@ int wrong_args(int ac, char **av)
     i = 0;
     flag = 0;
     if (ac < 5)
-        return(printf("Too few arguments, should be:\n[n_philos] [t_die] [t_eat] [t_sleep] [x_eat](optional)\n"));
+        return(printf("Too few arguments, should be:\n[n_philos] [t_die] [t_eat] [t_sleep] [n_eat](optional)\n"));
     else if (ac > 6)
         return(printf("Too many arguments, check subject.\n"));
     while (--ac)

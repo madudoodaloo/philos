@@ -6,39 +6,65 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 03:44:05 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/01 05:23:13 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:53:26 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int food = 0;
-pthread_mutex_t mutex;
-
-void    *alive(t_args *args)
+unsigned long gettimems()
 {
-    while (food <= args->t_eat)
+	struct timeval tv;
+
+	if(gettimeofday(&tv, NULL) == -1)
+		return (printf("couldn't get time\n"));
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+int food = 0;
+
+void    *alive(void *arg)
+{
+	t_philo *args = (t_philo *)arg;
+
+    while (food <= 20)
     {
-        pthread_mutex_lock(&mutex);
+        pthread_mutex_lock(&args->mutex);
         food++;
-        pthread_mutex_unlock(&mutex);
+        pthread_mutex_unlock(&args->mutex);
     }
     return NULL;
 }
 
-int create_philo(t_args *args)
+pthread_t *create_philo(t_philo *args, int n_philo)
 {
-    pthread_t p1, p2;
-    
-    pthread_mutex_init(&mutex, NULL);
-    if(pthread_create(&p1, NULL, &alive, args))
-        return (printf("failed to create thread\n"));
-    pthread_create(&p2, NULL, &alive, args);
-    pthread_join(p1, NULL);
-    printf("food total is %d\n", food);
-    pthread_join(p2, NULL);
-    printf("food total is %d\n", food);
-    pthread_mutex_destroy(&mutex);
-    printf("food total is %d\n", food);
-    return 0;
+    pthread_t   *table;
+    int         i;
+
+	i = -1;
+    table = (pthread_t *)malloc(sizeof(pthread_t) * args->n_philo);
+    if (!table)
+        return (NULL);
+    pthread_mutex_init(&args->mutex, NULL);
+    while (++i < n_philo)
+    {
+        if(pthread_create(&table[i], NULL, &alive, args) != 0)
+        {
+            printf("failed to create thread %d\n", i);
+            return (table);
+        }
+		printf("%d philo was born\n", i);
+    }
+	i = -1;
+	while (++i < n_philo)
+	{
+		if(pthread_join(table[i], NULL) != 0)
+        {
+            printf("failed to join thread %d\n", i);
+            return (table);
+        }
+		printf("%d thread was joined\n", i);
+    }
+	gettimems();
+    pthread_mutex_destroy(&args->mutex);
+    return table;
 }
