@@ -6,13 +6,13 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 01:53:37 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 12:29:33 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:45:23 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_table *init_all(t_table *table, int ac, char **av)
+t_table *init_all(t_table *table, char **av)
 {
 	table = (t_table *)malloc(sizeof(t_table));
 	if(!table)
@@ -23,10 +23,19 @@ t_table *init_all(t_table *table, int ac, char **av)
 	if (!table->philo)
 		return(table);
 	memset(table->philo, 0, sizeof(t_philo));
+	table->args = (t_args *)malloc(sizeof(t_args));
+	if (!table->args)
+		return (table);
+	parser(&table->args, av);
+	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (table->n_philo + 1));
+		return(table);
+	int i = -1;
+	while (++i < table->n_philo)
+		pthread_mutex_init(&table->forks[i], NULL);
 	return(table);
 }
 
-void free_and_exit(t_table *table, char *str)
+int free_and_exit(t_table *table, char *str)
 {
 	int i;
 
@@ -44,26 +53,27 @@ void free_and_exit(t_table *table, char *str)
 		}
 	}
 	if (str)
-		printf("%s\n", str);
+		return(printf("%s\n", str));
+	return (0);
 }
 
 int main(int ac, char **av)
 {
 	t_table	*table;
-    pthread_t *threads;
+	int ret;
 
+	ret = 0;
 	table = NULL;
     if(!wrong_args(ac, av))
     {
-		table = init_all(table, ac, av);
-        if(table && table->philo)
+		table = init_all(table, av);
+        if(table && table->philo && table->args)
         {
-			set_table(table, &table->philo);
-            threads = create_philo(table, table->philo->n_philo);
+			ret = set_table(table, &table->philo, av);
         }
 		else
-    		free_and_exit(table, "Failed malloc");
+    		return(free_and_exit(table, "Failed malloc"));
     }
-    free_and_exit(table, NULL);
-    return (0);
+	if(!ret)
+    	return (free_and_exit(table, NULL));
 }

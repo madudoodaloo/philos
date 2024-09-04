@@ -6,15 +6,11 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 03:10:30 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 12:28:34 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:08:37 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void init_all(t_table *table)
-{
-}
 
 size_t ft_atoi(const char *str)
 {
@@ -29,16 +25,14 @@ size_t ft_atoi(const char *str)
     return(nbr);
 }
 
-void parser(char **av, t_philo *philo)
+void parser(t_args *args, char **av)
 {
-    philo->n_philo = ft_atoi(av[1]);
-    philo->t_die = ft_atoi(av[2]);
-    philo->t_eat = ft_atoi(av[3]);
-    philo->t_sleep = ft_atoi(av[4]);
+    args->n_philo = ft_atoi(av[1]);
+    args->t_die = ft_atoi(av[2]);
+    args->t_eat = ft_atoi(av[3]);
+    args->t_sleep = ft_atoi(av[4]);
     if (av[5])
-        philo->n_eat = ft_atoi(av[5]);
-	}
-    table->philo = (t_philo *)malloc(sizeof(t_philo) * );
+        args->n_eat = ft_atoi(av[5]);
 }
 
 int wrong_args(int ac, char **av)
