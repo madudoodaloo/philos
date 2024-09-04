@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 03:10:30 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/03 15:13:48 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:28:34 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void parser(char **av, t_philo *philo)
     philo->t_sleep = ft_atoi(av[4]);
     if (av[5])
         philo->n_eat = ft_atoi(av[5]);
+	}
     table->philo = (t_philo *)malloc(sizeof(t_philo) * );
 }
 
@@ -47,10 +48,8 @@ int wrong_args(int ac, char **av)
 
     i = 0;
     flag = 0;
-    if (ac < 5)
-        return(printf("Too few arguments, should be:\n[n_philos] [t_die] [t_eat] [t_sleep] [n_eat](optional)\n"));
-    else if (ac > 6)
-        return(printf("Too many arguments, check subject.\n"));
+    if (ac < 5 || ac > 6)
+        return(printf("Bad arguments, expected 5 or 6.\n"));
     while (--ac)
     {
         while (av[ac][i])
