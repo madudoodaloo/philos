@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 01:36:44 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 15:20:29 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:33:01 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct  s_args
     size_t  t_die;  //av[2]
     size_t  t_eat;  //av[3]
     size_t  t_sleep;//av[4]
-    size_t     n_eat;  //av[5]
+    int     n_eat;  //av[5]
 }               t_args;
 
 typedef struct s_philo
@@ -55,22 +55,23 @@ typedef struct s_table
 }               t_table;
 
 /* time.c */
-unsigned long gettimems(void);
+unsigned long timediff(t_table *table);
+long long gettimems(void);
 
 /* threads.c */
+void    simulation(t_table *table, t_philo **philo, t_args *args);
 void    *alive(void *args);
-int set_table(t_table *table, t_philo **philo, char **av);
 
 /* parser.c */
-void    parser(char **av, t_philo *args);
 size_t  ft_atoi(const char *str);
+int ft_skipspace(int ac, char **av);
 int     wrong_args(int ac, char **av);
 
-/* testers.c */
-void    print_struct(t_philo *args);
-
-/* philo.c */
-t_table *init_all(t_table *table, char **av);
+/* init.c */
+int init_all(t_table *table, char **av);
+int init_args(t_table *table, char **av);
+int init_forks(t_table *table);
+int init_philo(t_table *table);
 int free_and_exit(t_table *table, char *str);
 
 
