@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 03:44:05 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 13:43:44 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:54:47 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void    *alive(void *arg)
 {
-	t_table *args = (t_table *)arg;
-
-    while (food <= 20)
-    {
-        pthread_mutex_lock(&args->mutex);
-        pthread_mutex_unlock(&args->mutex);
-    }
-    return NULL;
+	t_table *table = (t_table *)arg;
+	if (table->args->n_philo == 1)
+		table_for_one();
+	else if ((table->args->n_philo) % 2 == 0)
+		table_for_even();
+	else
+		table_for_odd();
 }
 
 int set_table(t_table *table, t_philo **philo, char **av)
@@ -47,5 +46,5 @@ int set_table(t_table *table, t_philo **philo, char **av)
 		if(pthread_join(philo[i]->thread, NULL) != 0)
             return (free_and_exit(table, "failed to join thread"));
     }
-    return table;
+    return 0;
 }
