@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 01:36:44 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 13:43:53 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:07:30 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ struct s_table
     int             alive;
     pthread_mutex_t rdwr;
     pthread_mutex_t *forks;
-    t_philo         *philo;
+    t_philo         **philo;
+    unsigned long   start_time;
 };
 
 /* time.c */

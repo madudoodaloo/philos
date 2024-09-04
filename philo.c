@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 01:53:37 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 13:45:23 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:07:43 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_table *init_all(t_table *table, char **av)
 		return (NULL);
 	memset(table, 0, sizeof(t_table));
 	table->n_philo = ft_atoi(av[1]);
-	table->philo = (t_philo *)malloc(sizeof(t_philo) * table->n_philo);
+	table->philo = (t_philo **)malloc(sizeof(t_philo *) * table->n_philo);
 	if (!table->philo)
 		return(table);
 	memset(table->philo, 0, sizeof(t_philo));

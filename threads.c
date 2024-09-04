@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 03:44:05 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 13:54:47 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:09:59 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void    *alive(void *arg)
 {
 	t_table *table = (t_table *)arg;
 	if (table->args->n_philo == 1)
-		table_for_one();
+		table_for_one(table, &table->philo);
 	else if ((table->args->n_philo) % 2 == 0)
-		table_for_even();
+		table_for_even(table, &table->philo);
 	else
-		table_for_odd();
+		table_for_odd(table, &table->philo);
 }
 
 int set_table(t_table *table, t_philo **philo, char **av)
@@ -29,8 +29,10 @@ int set_table(t_table *table, t_philo **philo, char **av)
 
 	i = -1;
     pthread_mutex_init(&table->rdwr, NULL);
+	table->start_time = gettimems();
     while (++i < table->n_philo)
     {
+		table->philo[i] = (t_philo *)malloc(sizeof(t_philo));
 		philo[i]->id = i + 1;
 		philo[i]->left_fork = &table->forks[i];
 		if (table->n_philo == 1)
