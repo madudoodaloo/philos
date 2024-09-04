@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 01:36:44 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 15:07:30 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:20:29 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@
 // Expected commandline:
 // [n_philos] [t_die] [t_eat] [t_sleep] [n_eat](optional)
 
-typedef struct s_table t_table;
-
-typedef struct s_args
+typedef struct  s_args
 {
     int     n_philo;//av[1] 
     size_t  t_die;  //av[2]
     size_t  t_eat;  //av[3]
     size_t  t_sleep;//av[4]
-    int     n_eat;  //av[5]
+    size_t     n_eat;  //av[5]
 }               t_args;
 
 typedef struct s_philo
@@ -41,19 +39,20 @@ typedef struct s_philo
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
     size_t          t_last_meal;
+    size_t          had_x_meals;
 }           t_philo;
 
 
-struct s_table
+typedef struct s_table
 {
     t_args          *args;
     int             n_philo;
-    int             alive;
+    int             dead;
     pthread_mutex_t rdwr;
     pthread_mutex_t *forks;
     t_philo         **philo;
-    unsigned long   start_time;
-};
+    size_t          start_time;
+}               t_table;
 
 /* time.c */
 unsigned long gettimems(void);
