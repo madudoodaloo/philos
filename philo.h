@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 01:36:44 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 18:33:01 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:22:33 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <string.h>
 #include <sys/time.h>
 
+struct s_table;
 // Expected commandline:
 // [n_philos] [t_die] [t_eat] [t_sleep] [n_eat](optional)
 
@@ -40,6 +41,7 @@ typedef struct s_philo
     pthread_mutex_t *right_fork;
     size_t          t_last_meal;
     size_t          had_x_meals;
+    struct s_table         *table;
 }           t_philo;
 
 
@@ -51,15 +53,15 @@ typedef struct s_table
     pthread_mutex_t rdwr;
     pthread_mutex_t *forks;
     t_philo         **philo;
-    size_t          start_time;
+    long long       start_time;
 }               t_table;
 
 /* time.c */
-unsigned long timediff(t_table *table);
+long long timediff(t_table *table);
 long long gettimems(void);
 
 /* threads.c */
-void    simulation(t_table *table, t_philo **philo, t_args *args);
+int    simulation(t_table *table, t_philo **philo);
 void    *alive(void *args);
 
 /* parser.c */

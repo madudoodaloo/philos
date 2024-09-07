@@ -6,13 +6,13 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:42:40 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 17:57:55 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:41:52 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned long timediff(t_table *table)
+long long timediff(t_table *table)
 {
     return (table->start_time - gettimems());
 }

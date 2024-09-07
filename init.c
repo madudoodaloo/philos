@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:18:52 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/04 18:32:55 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:27:29 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@ int free_and_exit(t_table *table, char *str)
         if (table->args)
             free(table->args);
         if (table->forks)
+        {
+            while (++i < table->n_philo)
+                pthread_mutex_destroy(&table->forks[i]);
             free(table->forks);
+        }
         if (table->philo)
         {
-            while (table->philo[++i])
+            i = -1;
+            while (++i < table->n_philo) 
                 free(table->philo[i]);
             free(table->philo);
         }
@@ -75,11 +80,12 @@ int init_philo(t_table *table)
         return 0;
     while (++i < table->n_philo)
     {
+        table->philo[i]->table = table;
         table->philo[i] = (t_philo *)malloc(sizeof(t_philo));
         if (!table->philo[i])
             return 0;
         memset(table->philo[i], 0, sizeof(t_philo));
-        printf("%zu is the last time %d has eaten\n", table->philo[i]->t_last_meal, i + 1);
+        //printf("%zu is the last time %d has eaten\n", table->philo[i]->t_last_meal, i + 1);
         table->philo[i]->id = i + 1;
         table->philo[i]->left_fork = &table->forks[i];
         if (table->n_philo == 1)
