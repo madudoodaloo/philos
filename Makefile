@@ -1,8 +1,8 @@
 NAME = philo
 
-CC = cc 
-RM = rm -rf 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CC = cc
+RM = rm -rf
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 
 SRC = $(wildcard *.c)
 

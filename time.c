@@ -5,23 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 17:42:40 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/06 16:41:52 by msilva-c         ###   ########.fr       */
+/*   Created: 2024/09/09 14:29:20 by msilva-c          #+#    #+#             */
+/*   Updated: 2024/09/10 15:59:19 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long timediff(t_table *table)
+long long	timediff(long long start)
 {
-    return (table->start_time - gettimems());
+	long long	current;
+
+	current = gettimems();
+	return (current - start);
 }
 
-long long gettimems(void)
+long long	gettimems(void)
 {
-    struct timeval	tv;
+	struct timeval	tv;
 
-	if(gettimeofday(&tv, NULL))
-        return (-1);
+	if (gettimeofday(&tv, NULL))
+		return (-1);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
