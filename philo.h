@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:33:16 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/10 20:03:47 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:52:11 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_args
 typedef struct s_table
 {
 	int				mutex_error;
+	int				total_meals;
+	pthread_mutex_t	meal_counter;
 	int				dead;
 	pthread_mutex_t	death;
 	pthread_mutex_t	rdwr;
@@ -62,12 +64,14 @@ t_table				*init_table(t_args args);
 t_philo				*init_philo(t_args args, t_table *table);
 
 /* time.c */
+void 				ft_usleep(long long time_to);
 long long			timediff(long long start);
 long long			gettimems(void);
 
 /* threads.c */
-int					wait_now(t_philo *philo, long long time_to);
-void				print(t_philo *philo, char *str);
+int	eat_impar(t_philo *philo);
+int	eat_par(t_philo *philo);
+int	print(int death, t_philo *philo, char *str);
 int					eat(t_philo *philo);
 int					check_dead(t_philo *philo);
 void				*alive(void *args);

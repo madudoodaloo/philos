@@ -1,8 +1,9 @@
 NAME = philo
 
+TSAN_OPTIONS=second_deadlock_stack=1
 CC = cc
 RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
 
 SRC = $(wildcard *.c)
 

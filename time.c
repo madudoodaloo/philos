@@ -6,11 +6,20 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:20 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/10 15:59:19 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:49:13 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void ft_usleep(long long time_to)
+{
+	long long start;
+
+	start = gettimems();
+	while (gettimems() - start < time_to)
+		usleep(60);
+}
 
 long long	timediff(long long start)
 {
