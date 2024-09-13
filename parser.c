@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:46:50 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/10 20:06:29 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:04:13 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,16 @@ int	wrong_args(int ac, char **av)
 		return (printf("Wrong number of arguments\n"));
 	while (--ac)
 	{
+		if (!av[ac][0])
+			return (printf("Bad arguments, empty strings no\n"));
 		while (av[ac][i])
 		{
 			if (av[ac][i] < 48 || av[ac][i++] > 57)
 				return (printf("Bad arguments, only digits allowed\n"));
+			if (ft_atoi(av[ac]) == 0)
+				return (printf("Bad arguments, must be positive\n"));
 		}
+		
 		i = 0;
 	}
 	return (0);

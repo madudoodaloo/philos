@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:18:38 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/12 16:48:02 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:10:10 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int countmeal(t_philo *philo, int flag)
 }
 int	eat_impar(t_philo *philo)
 {
-	if (print(check_dead(philo), philo, NULL))
+	if (print(0, philo, NULL))
 		return (0);
 	pthread_mutex_lock(philo->right_fork);
-	if (print(check_dead(philo), philo, "has taken a right fork"))
+	if (print(0, philo, "has taken a right fork"))
 	{
 		pthread_mutex_unlock(philo->right_fork);
 		return (0);
 	}
 	pthread_mutex_lock(philo->left_fork);
-	if (print(check_dead(philo), philo, "has taken a left fork"))
+	if (print(0, philo, "has taken a left fork"))
 	{
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
@@ -51,16 +51,16 @@ int	eat_impar(t_philo *philo)
 
 int	eat_par(t_philo *philo)
 {
-	if (print(check_dead(philo), philo, NULL))
+	if (print(0, philo, NULL))
 		return (0);
 	pthread_mutex_lock(philo->left_fork);
-	if (print(check_dead(philo), philo, "has taken a left fork"))
+	if (print(0, philo, "has taken a left fork"))
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		return (0);
 	}
 	pthread_mutex_lock(philo->right_fork);
-	if (print(check_dead(philo), philo, "has taken a right fork"))
+	if (print(0, philo, "has taken a right fork"))
 	{
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
@@ -91,14 +91,8 @@ void	*table_for_one(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	print(0, philo, "has taken a fork");
-	while (1)
-	{
-		if (check_dead(philo))
-		{
-			print(1, philo, "died");
-			break ;
-		}
-	}
+	ft_usleep(philo->args.t_die);
+	printf("%lld %d died\n", timediff(philo->table->start_time),philo->id);
 	pthread_mutex_unlock(philo->left_fork);
 	return (NULL);
 }
@@ -121,10 +115,10 @@ void	*alive(void *args)
 		if (philo->args.n_eat > 0 && philo->had_x_meals >= philo->args.n_eat \
 			&& i >= philo->args.n_eat * philo->args.n_philo)
 			break ;
-		if (print(check_dead(philo), philo, "is sleeping"))
+		if (print(0, philo, "is sleeping"))
 			break ;
 		ft_usleep(philo->args.t_sleep);
-		if (print(check_dead(philo), philo, "is thinking"))
+		if (print(0, philo, "is thinking"))
 			break ;
 	}
 	return (NULL);

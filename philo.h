@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:33:16 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/12 14:52:11 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:41:27 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_table
 	pthread_mutex_t	rdwr;
 	pthread_mutex_t	*forks;
 	long long		start_time;
+	int				suicide;
 }					t_table;
 
 typedef struct s_philo
