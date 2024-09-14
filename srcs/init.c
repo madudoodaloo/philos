@@ -6,11 +6,11 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:38:48 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:41:16 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:37:07 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 int	free_and_exit(t_table *table, t_philo *philo, char *str)
 {
@@ -59,7 +59,7 @@ t_table	*init_table(t_args args)
 	table = (t_table *)malloc(sizeof(t_table));
 	if (!table)
 		return (NULL);
-	memset(&table, 0, sizeof(t_table));
+	memset(table, 0, sizeof(t_table));
 	pthread_mutex_init(&table->meal_counter, NULL);
 	pthread_mutex_init(&table->rdwr, NULL);
 	pthread_mutex_init(&table->death, NULL);

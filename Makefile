@@ -4,7 +4,13 @@ CC = cc
 RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
 
-SRC = $(wildcard *.c)
+SRC = ./srcs/eat.c \
+	./srcs/init.c \
+	./srcs/parser.c \
+	./srcs/time.c \
+	./srcs/philo.c\
+	./srcs/threads.c\
+	./srcs/utils.c
 
 OBJS_DIR = objs
 OBJS = $(patsubst %.c,$(OBJS_DIR)/%.o,$(SRC))

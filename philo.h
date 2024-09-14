@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:33:16 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:52:25 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:30:38 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,22 @@ typedef struct s_philo
 	t_table			*table;
 }					t_philo;
 
-/* parser.c */
-size_t				ft_atoi(const char *str);
-int					wrong_args(int ac, char **av);
+/* eat.c */
+int					drop_forks(pthread_mutex_t *first, pthread_mutex_t *last);
+int					eat_odd(t_philo *philo);
+int					eat_even(t_philo *philo);
+int					split_eat(t_philo *philo);
+void				*table_for_one(t_philo *philo);
 
 /* init.c */
 int					free_and_exit(t_table *table, t_philo *philo, char *str);
 t_args				init_args(char **av);
 t_table				*init_table(t_args args);
 t_philo				*init_philo(t_args args, t_table *table);
+
+/* parser.c */
+size_t				ft_atoi(const char *str);
+int					wrong_args(int ac, char **av);
 
 /* time.c */
 void				unsync(long long time_to);
@@ -71,13 +78,12 @@ long long			timediff(long long start);
 long long			gettimems(void);
 
 /* threads.c */
-int					drop_forks(pthread_mutex_t *first, pthread_mutex_t *last);
-int					eat_odd(t_philo *philo);
-int					eat_even(t_philo *philo);
-int					print(int death, t_philo *philo, char *str);
-int					eat(t_philo *philo);
-int					check_dead(t_philo *philo);
-void				*alive(void *args);
+pthread_mutex_t		*get_forks(t_philo *philo, int i);
 int					simulation(t_philo *philo, t_args args, t_table *table);
+void				*alive(void *args);
 
+/* utils.c */
+int					countmeal(t_philo *philo, int flag);
+int					check_dead(t_philo *philo);
+int					print(int death, t_philo *philo, char *str);
 #endif

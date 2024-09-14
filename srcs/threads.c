@@ -6,13 +6,13 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:18:38 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 19:16:17 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:29:02 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
-static pthread_mutex_t	*get_forks(t_philo *philo, int i)
+pthread_mutex_t	*get_forks(t_philo *philo, int i)
 {
 	if (philo->args.n_philo == 1)
 		return (NULL);

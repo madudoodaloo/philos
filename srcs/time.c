@@ -6,11 +6,11 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:20 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:37:23 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:22:08 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 void	unsync(long long time_to)
 {

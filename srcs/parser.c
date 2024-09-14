@@ -6,11 +6,11 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:46:50 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:37:43 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:22:05 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 size_t	ft_atoi(const char *str)
 {

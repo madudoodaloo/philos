@@ -6,11 +6,11 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:57:40 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 19:16:25 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:22:09 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 int	countmeal(t_philo *philo, int flag)
 {
