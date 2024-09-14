@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:33:16 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:12:15 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:52:25 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ t_table				*init_table(t_args args);
 t_philo				*init_philo(t_args args, t_table *table);
 
 /* time.c */
-void unsync(long long time_to);
-int ft_usleep(t_philo *philo, long long time_to);
+void				unsync(long long time_to);
+int					ft_usleep(t_philo *philo, long long time_to);
 long long			timediff(long long start);
 long long			gettimems(void);
 
 /* threads.c */
-int	eat_impar(t_philo *philo);
-int	eat_par(t_philo *philo);
-int	print(int death, t_philo *philo, char *str);
+int					drop_forks(pthread_mutex_t *first, pthread_mutex_t *last);
+int					eat_odd(t_philo *philo);
+int					eat_even(t_philo *philo);
+int					print(int death, t_philo *philo, char *str);
 int					eat(t_philo *philo);
 int					check_dead(t_philo *philo);
 void				*alive(void *args);

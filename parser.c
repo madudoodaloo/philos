@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:46:50 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/12 19:04:13 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:37:43 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ size_t	ft_atoi(const char *str)
 		nbr = 10 * nbr + (str[i++] - 48);
 	return (nbr);
 }
-
-
 
 int	wrong_args(int ac, char **av)
 {
@@ -44,7 +42,6 @@ int	wrong_args(int ac, char **av)
 			if (ft_atoi(av[ac]) == 0)
 				return (printf("Bad arguments, must be positive\n"));
 		}
-		
 		i = 0;
 	}
 	return (0);

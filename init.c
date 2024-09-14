@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:38:48 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 16:55:51 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:41:16 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,10 @@ t_table	*init_table(t_args args)
 	table = (t_table *)malloc(sizeof(t_table));
 	if (!table)
 		return (NULL);
-	table->dead = 0;
-	table->start_time = 0;
-	table->mutex_error = 0;
-	table->total_meals = 0;
+	memset(&table, 0, sizeof(t_table));
 	pthread_mutex_init(&table->meal_counter, NULL);
 	pthread_mutex_init(&table->rdwr, NULL);
 	pthread_mutex_init(&table->death, NULL);
-	printf("%p is rdwr mutex\n",&table->rdwr);
-	printf("%p is death mutex\n", &table->death);
-	printf("%p is meal counter mutex\n", &table->meal_counter);
-	table->suicide = 0;
 	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			* args.n_philo);
 	if (!table->forks)
@@ -81,7 +74,6 @@ t_table	*init_table(t_args args)
 			table->mutex_error = 1;
 			break ;
 		}
-		printf("%p is %d philo\n", &table->forks[i], i + 1);
 	}
 	return (table);
 }

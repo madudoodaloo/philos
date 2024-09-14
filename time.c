@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:20 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:30:43 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:37:23 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void unsync(long long time_to)
+void	unsync(long long time_to)
 {
-	long long start;
+	long long	start;
 
 	start = gettimems();
 	while (gettimems() - start < time_to)
@@ -22,9 +22,9 @@ void unsync(long long time_to)
 	return ;
 }
 
-int ft_usleep(t_philo *philo, long long time_to)
+int	ft_usleep(t_philo *philo, long long time_to)
 {
-	long long start;
+	long long	start;
 
 	start = gettimems();
 	while (gettimems() - start < time_to)

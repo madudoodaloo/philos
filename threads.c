@@ -3,138 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:18:38 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:28:38 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:15:18 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int countmeal(t_philo *philo, int flag)
-{
-	int	i;
-
-	pthread_mutex_lock(&philo->table->meal_counter);
-	if (flag)
-		philo->table->total_meals++;
-	i = philo->table->total_meals;
-	pthread_mutex_unlock(&philo->table->meal_counter);
-	return (i);
-}
-int	eat_impar(t_philo *philo)
-{
-	if (print(0, philo, NULL))
-		return (0);
-	pthread_mutex_lock(philo->right_fork);
-	if (print(0, philo, "has taken a fork"))
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		return (0);
-	}
-	pthread_mutex_lock(philo->left_fork);
-	if (print(0, philo, "has taken a fork"))
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-		return (0);
-	}
-	print(0, philo, "is eating");
-	if (ft_usleep(philo, philo->args.t_eat) > 0)
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		return (0);
-	}
-	philo->t_last_meal = gettimems();
-	philo->had_x_meals++;
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
-	return (countmeal(philo, 1));
-}
-
-int	eat_par(t_philo *philo)
-{
-	if (print(0, philo, NULL))
-		return (0);
-	pthread_mutex_lock(philo->left_fork);	
-	if (print(0, philo, "has taken a fork"))
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		return (0);
-	}
-	pthread_mutex_lock(philo->right_fork);	
-
-	if (print(0, philo, "has taken a fork"))
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		return (0);
-	}
-	print(0, philo, "is eating");
-	if (ft_usleep(philo, philo->args.t_eat) > 0)
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		return (0);
-	}
-	philo->t_last_meal = gettimems();
-	//gettimems() - philo->table->start_time - philo->t_last_meal;
-	philo->had_x_meals++;
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(philo->left_fork);
-	return (countmeal(philo, 1));
-}
-
-int	split_eat(t_philo *philo)
-{
-	int	ret;
-
-	ret = 1;
-	if (philo->id % 2 == 1)
-		ret = eat_impar(philo);
-	else
-		ret = eat_par(philo);
-	return (ret);
-}
-
-void	*table_for_one(t_philo *philo)
-{
-	print(0, philo, "has taken a fork");
-	unsync(philo->args.t_die);
-	printf("%lld %d died\n", timediff(philo->table->start_time),philo->id);
-	return (NULL);
-}
-
-void	*alive(void *args)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)args;
-		
-	philo->t_last_meal = philo->table->start_time;
-	if (philo->args.n_philo == 1)
-		return (table_for_one(philo));
-	if (philo->id % 2 == 0)
-		unsync(10);
-	while (!check_dead(philo))
-	{
-		int i = split_eat(philo);
-		if (!i)
-			break ;
-		if (philo->args.n_eat > 0 && philo->had_x_meals >= philo->args.n_eat \
-			&& i >= philo->args.n_eat * philo->args.n_philo)
-			break ;
-		if (print(0, philo, "is sleeping"))
-			break ;
-		ft_usleep(philo, philo->args.t_sleep);
-		if (print(0, philo, "is thinking"))
-			break ;
-		//unsync(10);
-	}
-	return (NULL);
-}
 
 static pthread_mutex_t	*get_forks(t_philo *philo, int i)
 {
@@ -160,7 +36,7 @@ int	simulation(t_philo *philo, t_args args, t_table *table)
 		philo[i].left_fork = &table->forks[i];
 		philo[i].right_fork = get_forks(&philo[i], i);
 		printf("left: [%p] right: [%p] philo: [%d]\n", philo[i].left_fork,
-				philo[i].right_fork, i);
+			philo[i].right_fork, i);
 	}
 	i = -1;
 	while (++i < args.n_philo)
@@ -173,4 +49,32 @@ int	simulation(t_philo *philo, t_args args, t_table *table)
 			return (free_and_exit(table, philo, "error joining thread"));
 	}
 	return (0);
+}
+
+void	*alive(void *args)
+{
+	t_philo	*philo;
+	int		i;
+
+	philo = (t_philo *)args;
+	philo->t_last_meal = philo->table->start_time;
+	if (philo->args.n_philo == 1)
+		return (table_for_one(philo));
+	if (philo->id % 2 == 0)
+		unsync(10);
+	while (!check_dead(philo))
+	{
+		i = split_eat(philo);
+		if (!i)
+			break ;
+		if (philo->args.n_eat > 0 && philo->had_x_meals >= philo->args.n_eat
+			&& i >= philo->args.n_eat * philo->args.n_philo)
+			break ;
+		if (print(0, philo, "is sleeping"))
+			break ;
+		ft_usleep(philo, philo->args.t_sleep);
+		if (print(0, philo, "is thinking"))
+			break ;
+	}
+	return (NULL);
 }
