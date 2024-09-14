@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:18:38 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/12 19:10:10 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:20:32 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,26 @@ int	eat_impar(t_philo *philo)
 	if (print(0, philo, NULL))
 		return (0);
 	pthread_mutex_lock(philo->right_fork);
-	if (print(0, philo, "has taken a right fork"))
+	if (print(0, philo, "has taken a fork"))
 	{
 		pthread_mutex_unlock(philo->right_fork);
 		return (0);
 	}
 	pthread_mutex_lock(philo->left_fork);
-	if (print(0, philo, "has taken a left fork"))
+	if (print(0, philo, "has taken a fork"))
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		return (0);
+	}
+	print(0, philo, "is eating");
+	if (ft_usleep(philo, philo->args.t_eat) > 0)
 	{
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
 		return (0);
 	}
-	print(0, philo, "is eating");
 	philo->t_last_meal = gettimems();
-	ft_usleep(philo->args.t_eat);
 	philo->had_x_meals++;
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -53,22 +58,29 @@ int	eat_par(t_philo *philo)
 {
 	if (print(0, philo, NULL))
 		return (0);
-	pthread_mutex_lock(philo->left_fork);
-	if (print(0, philo, "has taken a left fork"))
+	pthread_mutex_lock(philo->left_fork);	
+	if (print(0, philo, "has taken a fork"))
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		return (0);
 	}
-	pthread_mutex_lock(philo->right_fork);
-	if (print(0, philo, "has taken a right fork"))
+	pthread_mutex_lock(philo->right_fork);	
+
+	if (print(0, philo, "has taken a fork"))
 	{
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
 		return (0);
 	}
 	print(0, philo, "is eating");
+	if (ft_usleep(philo, philo->args.t_eat) > 0)
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+		return (0);
+	}
 	philo->t_last_meal = gettimems();
-	ft_usleep(philo->args.t_eat);
+	//gettimems() - philo->table->start_time - philo->t_last_meal;
 	philo->had_x_meals++;
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
@@ -80,7 +92,7 @@ int	split_eat(t_philo *philo)
 	int	ret;
 
 	ret = 1;
-	if (philo->id % 2)
+	if (philo->id % 2 == 1)
 		ret = eat_impar(philo);
 	else
 		ret = eat_par(philo);
@@ -89,11 +101,9 @@ int	split_eat(t_philo *philo)
 
 void	*table_for_one(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left_fork);
 	print(0, philo, "has taken a fork");
-	ft_usleep(philo->args.t_die);
+	unsync(philo->args.t_die);
 	printf("%lld %d died\n", timediff(philo->table->start_time),philo->id);
-	pthread_mutex_unlock(philo->left_fork);
 	return (NULL);
 }
 
@@ -102,11 +112,12 @@ void	*alive(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	if (philo->id % 2 == 0)
-		ft_usleep(10);
-	philo->t_last_meal = gettimems();
+		
+	philo->t_last_meal = philo->table->start_time;
 	if (philo->args.n_philo == 1)
 		return (table_for_one(philo));
+	if (philo->id % 2 == 0)
+		unsync(10);
 	while (!check_dead(philo))
 	{
 		int i = split_eat(philo);
@@ -117,7 +128,7 @@ void	*alive(void *args)
 			break ;
 		if (print(0, philo, "is sleeping"))
 			break ;
-		ft_usleep(philo->args.t_sleep);
+		ft_usleep(philo, philo->args.t_sleep);
 		if (print(0, philo, "is thinking"))
 			break ;
 	}

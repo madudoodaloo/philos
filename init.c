@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:38:48 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/12 18:56:03 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:55:51 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	free_and_exit(t_table *table, t_philo *philo, char *str)
 		free(table->forks);
 		pthread_mutex_destroy(&table->death);
 		pthread_mutex_destroy(&table->rdwr);
+		pthread_mutex_destroy(&table->meal_counter);
+		free(table);
 	}
 	if (philo)
 		free(philo);
@@ -67,7 +69,7 @@ t_table	*init_table(t_args args)
 	printf("%p is rdwr mutex\n",&table->rdwr);
 	printf("%p is death mutex\n", &table->death);
 	printf("%p is meal counter mutex\n", &table->meal_counter);
-
+	table->suicide = 0;
 	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			* args.n_philo);
 	if (!table->forks)

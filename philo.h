@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:33:16 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/12 18:41:27 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:12:15 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	size_t			t_last_meal;
+	long long		t_last_meal;
 	int				had_x_meals;
 	t_args			args;
 	t_table			*table;
@@ -65,7 +65,8 @@ t_table				*init_table(t_args args);
 t_philo				*init_philo(t_args args, t_table *table);
 
 /* time.c */
-void 				ft_usleep(long long time_to);
+void unsync(long long time_to);
+int ft_usleep(t_philo *philo, long long time_to);
 long long			timediff(long long start);
 long long			gettimems(void);
 

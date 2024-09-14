@@ -6,19 +6,34 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:20 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/12 18:50:26 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:12:36 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void ft_usleep(long long time_to)
+void unsync(long long time_to)
 {
 	long long start;
 
 	start = gettimems();
 	while (gettimems() - start < time_to)
-		usleep(60);
+		usleep(50);
+	return ;
+}
+
+int ft_usleep(t_philo *philo, long long time_to)
+{
+	long long start;
+
+	start = gettimems();
+	while (gettimems() - start < time_to)
+	{
+		if (check_dead(philo))
+			return (print(1, philo, NULL));
+		usleep(50);
+	}
+	return (0);
 }
 
 long long	timediff(long long start)
