@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:18:38 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 19:15:18 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:16:17 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	simulation(t_philo *philo, t_args args, t_table *table)
 		philo[i].id = i + 1;
 		philo[i].left_fork = &table->forks[i];
 		philo[i].right_fork = get_forks(&philo[i], i);
-		printf("left: [%p] right: [%p] philo: [%d]\n", philo[i].left_fork,
-			philo[i].right_fork, i);
 	}
 	i = -1;
 	while (++i < args.n_philo)
