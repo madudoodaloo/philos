@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:18:38 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:20:32 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:28:38 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	*alive(void *args)
 		ft_usleep(philo, philo->args.t_sleep);
 		if (print(0, philo, "is thinking"))
 			break ;
+		//unsync(10);
 	}
 	return (NULL);
 }

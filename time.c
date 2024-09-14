@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:20 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 18:12:36 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:30:43 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int ft_usleep(t_philo *philo, long long time_to)
 	{
 		if (check_dead(philo))
 			return (print(1, philo, NULL));
-		usleep(50);
+		usleep(25);
 	}
 	return (0);
 }
