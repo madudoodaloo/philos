@@ -6,16 +6,16 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:18:38 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/15 03:16:06 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/15 04:04:56 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void *alive(void *args)
+void	*alive(void *args)
 {
-	t_philo *philo;
-	int i;
+	t_philo	*philo;
+	int		i;
 
 	philo = (t_philo *)args;
 	philo->t_last_meal = philo->table->start_time;
@@ -26,21 +26,23 @@ void *alive(void *args)
 	while (1)
 	{
 		if (print(0, philo, NULL))
-			break;
+			break ;
 		i = split_eat(philo);
 		if (!i)
-			break;
-		if (philo->args.n_eat > 0 && philo->had_x_meals >= philo->args.n_eat && i >= philo->args.n_eat * philo->args.n_philo)
-			break;
+			break ;
+		if (philo->args.n_eat > 0 && philo->had_x_meals >= philo->args.n_eat \
+			&& i >= philo->args.n_eat * philo->args.n_philo)
+			break ;
 		if (print(0, philo, "is sleeping"))
-			break;
+			break ;
 		if (ft_usleep(philo, philo->args.t_sleep))
-			break;
+			break ;
 		if (print(0, philo, "is thinking"))
-			break;
+			break ;
 	}
 	return (NULL);
 }
+
 pthread_mutex_t *get_forks(t_philo *philo, int i)
 {
 	if (philo->args.n_philo == 1)
@@ -63,16 +65,14 @@ void *monitor(void *args)
 		i = 0;
 		while (i < philo[i]->args.n_philo)
 		{
-			//printf("%d %p is monitor thread\n", i, &philo[i]->table->monitor);
 			pthread_mutex_lock(&philo[0]->table->monitor);
 			if ((gettimems() - philo[i]->table->start_time) > (long long)philo[0]->args.t_die)
 			{
 				pthread_mutex_unlock(&philo[0]->table->monitor);
 				print(1, philo[i], NULL);
-				return NULL ;
+				return (NULL);
 			}
 			pthread_mutex_unlock(&philo[0]->table->monitor);
-			//printf("%d %p is monitor thread\n", i, &philo[i]->table->monitor);
 			i++;
 		}
 		usleep(100);

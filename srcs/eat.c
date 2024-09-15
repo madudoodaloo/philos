@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:12:45 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 21:08:47 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/15 04:02:47 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	eat_odd(t_philo *philo)
 	print(0, philo, "is eating");
 	if (ft_usleep(philo, philo->args.t_eat) > 0)
 		return (drop_forks(philo->left_fork, philo->right_fork));
-	//philo->t_last_meal = gettimems();
 	philo->had_x_meals++;
 	drop_forks(philo->left_fork, philo->right_fork);
 	return (countmeal(philo, 1));
@@ -53,7 +52,6 @@ int	eat_even(t_philo *philo)
 	print(0, philo, "is eating");
 	if (ft_usleep(philo, philo->args.t_eat) > 0)
 		return (drop_forks(philo->right_fork, philo->left_fork));
-	//philo->t_last_meal = gettimems();
 	philo->had_x_meals++;
 	drop_forks(philo->right_fork, philo->left_fork);
 	return (countmeal(philo, 1));

@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:38:48 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/15 03:16:01 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/15 04:03:12 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_table	*init_table(t_args args)
 	pthread_mutex_init(&table->rdwr, NULL);
 	pthread_mutex_init(&table->death, NULL);
 	pthread_mutex_init(&table->monitor, NULL);
-	//printf("%p is monitor thread\n", &table->monitor);
 	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			* args.n_philo);
 	if (!table->forks)
