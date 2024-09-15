@@ -6,7 +6,7 @@
 /*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:18:38 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/15 02:39:12 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/15 03:16:06 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void *monitor(void *args)
 		i = 0;
 		while (i < philo[i]->args.n_philo)
 		{
-			printf("%d %p is monitor thread\n", i, &philo[i]->table->monitor);
+			//printf("%d %p is monitor thread\n", i, &philo[i]->table->monitor);
 			pthread_mutex_lock(&philo[0]->table->monitor);
 			if ((gettimems() - philo[i]->table->start_time) > (long long)philo[0]->args.t_die)
 			{
@@ -72,7 +72,7 @@ void *monitor(void *args)
 				return NULL ;
 			}
 			pthread_mutex_unlock(&philo[0]->table->monitor);
-			printf("%d %p is monitor thread\n", i, &philo[i]->table->monitor);
+			//printf("%d %p is monitor thread\n", i, &philo[i]->table->monitor);
 			i++;
 		}
 		usleep(100);
