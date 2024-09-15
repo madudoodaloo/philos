@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:12:45 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 19:27:13 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:08:47 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ int	eat_odd(t_philo *philo)
 	if (print(0, philo, "has taken a fork"))
 		return (pthread_mutex_unlock(philo->right_fork));
 	pthread_mutex_lock(philo->left_fork);
+	philo->t_last_meal = gettimems();
 	if (print(0, philo, "has taken a fork"))
 		return (drop_forks(philo->left_fork, philo->right_fork));
 	print(0, philo, "is eating");
 	if (ft_usleep(philo, philo->args.t_eat) > 0)
 		return (drop_forks(philo->left_fork, philo->right_fork));
-	philo->t_last_meal = gettimems();
+	//philo->t_last_meal = gettimems();
 	philo->had_x_meals++;
 	drop_forks(philo->left_fork, philo->right_fork);
 	return (countmeal(philo, 1));
@@ -46,12 +47,13 @@ int	eat_even(t_philo *philo)
 	if (print(0, philo, "has taken a fork"))
 		return (pthread_mutex_unlock(philo->left_fork));
 	pthread_mutex_lock(philo->right_fork);
+	philo->t_last_meal = gettimems();
 	if (print(0, philo, "has taken a fork"))
 		return (drop_forks(philo->right_fork, philo->left_fork));
 	print(0, philo, "is eating");
 	if (ft_usleep(philo, philo->args.t_eat) > 0)
 		return (drop_forks(philo->right_fork, philo->left_fork));
-	philo->t_last_meal = gettimems();
+	//philo->t_last_meal = gettimems();
 	philo->had_x_meals++;
 	drop_forks(philo->right_fork, philo->left_fork);
 	return (countmeal(philo, 1));

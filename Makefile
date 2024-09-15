@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc
 RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 
 SRC = ./srcs/eat.c \
 	./srcs/init.c \

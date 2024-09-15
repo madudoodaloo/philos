@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:38:48 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 19:37:07 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/15 02:33:03 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	free_and_exit(t_table *table, t_philo *philo, char *str)
 			if (pthread_mutex_destroy(&table->forks[i]))
 				printf("failed to destroy [%d] fork mutex\n", i);
 		free(table->forks);
+		pthread_mutex_destroy(&table->monitor);
 		pthread_mutex_destroy(&table->death);
 		pthread_mutex_destroy(&table->rdwr);
 		pthread_mutex_destroy(&table->meal_counter);
@@ -63,6 +64,8 @@ t_table	*init_table(t_args args)
 	pthread_mutex_init(&table->meal_counter, NULL);
 	pthread_mutex_init(&table->rdwr, NULL);
 	pthread_mutex_init(&table->death, NULL);
+	pthread_mutex_init(&table->monitor, NULL);
+	printf("%p is monitor thread\n", &table->monitor);
 	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			* args.n_philo);
 	if (!table->forks)

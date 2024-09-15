@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:20 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 19:22:08 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:30:24 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	ft_usleep(t_philo *philo, long long time_to)
 	start = gettimems();
 	while (gettimems() - start < time_to)
 	{
-		if (check_dead(philo))
-			return (print(1, philo, NULL));
+		if (print(1, philo, NULL) > 0)
+			return (1);
 		usleep(25);
 	}
 	return (0);

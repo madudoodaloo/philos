@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilva-c <msilva-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: msilva-c <msilva-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:33:16 by msilva-c          #+#    #+#             */
-/*   Updated: 2024/09/14 19:30:38 by msilva-c         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:29:02 by msilva-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ typedef struct s_table
 	int				total_meals;
 	pthread_mutex_t	meal_counter;
 	int				dead;
+	pthread_mutex_t monitor;
 	pthread_mutex_t	death;
 	pthread_mutex_t	rdwr;
 	pthread_mutex_t	*forks;
+	pthread_t		th_monitor;
 	long long		start_time;
 	int				suicide;
 }					t_table;
